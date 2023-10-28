@@ -2,18 +2,29 @@ from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
 import os
+import logging
+import traceback
 
 db_uri = None
 if os.getenv('DEBUG') == '0':
     from mysql_model import Human
     db_uri = os.getenv('DATABASE_URI_MYSQL')
-    
+
 elif os.getenv('DEBUG') == '1':
     from test_model import Human
     db_uri = os.getenv('DATABASE_URI_SQLITE')
-   
+
 
 app = Flask(__name__)
+app.logger.setLevel(logging.DEBUG)
+log_handler = logging.FileHandler(os.getenv('LOG_FILE'))
+formatter = logging.Formatter(
+    '%(asctime)s - %(levelname)s - %(filename)s - %(name)s - %(funcName)s - %(message)s')
+log_handler.setFormatter(formatter)
+log_handler.setLevel(logging.DEBUG)
+app.logger.addHandler(log_handler)
+log = app.logger
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 app.config["PORT"] = os.getenv('PORT')
@@ -78,11 +89,6 @@ def person_search():
 
 @app.route("/person_result")
 def person_result():
-    search_weight = request.args.get("search_weight")
-    search_height = request.args.get("search_height")
-    over_under1 = request.args.get("over_under1")
-    over_under2 = request.args.get("over_under2")
-    andalso = request.args.get("andalso")
 
     andor = {
         "and": lambda a, b: and_(a, b),
@@ -93,12 +99,25 @@ def person_result():
         ">=": lambda a, b: a >= b,
     }
 
-    filter = andor[andalso](
-        o_u[over_under1](Human.weight, search_weight),
-        o_u[over_under2](Human.height, search_height),
-    )
+    try:
+        search_weight = request.args.get("search_weight")
+        search_height = request.args.get("search_height")
+        over_under1 = request.args.get("over_under1")
+        over_under2 = request.args.get("over_under2")
+        andalso = request.args.get("andalso")
 
-    persons = db.session.query(Human).filter((filter))
+        log.debug(f'search_weight:{search_weight}')
+        search_weight = int(search_weight)
+
+        filter = andor[andalso](
+            o_u[over_under1](Human.weight, search_weight),
+            o_u[over_under2](Human.height, search_height),
+        )
+
+        persons = db.session.query(Human).filter((filter))
+
+    except Exception:
+        log.error(traceback.format_exec())
 
     return render_template(
         "./person_result.html",

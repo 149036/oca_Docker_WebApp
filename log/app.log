@@ -1,0 +1,60 @@
+2023-10-28 08:43:15,554 - ERROR - app.py - app - log_exception - Exception on /person_result [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app.py", line 101, in person_result
+    filter = andor[andalso](
+UnboundLocalError: local variable 'andalso' referenced before assignment
+2023-10-28 08:43:20,906 - ERROR - app.py - app - log_exception - Exception on /person_result [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app.py", line 101, in person_result
+    filter = andor[andalso](
+UnboundLocalError: local variable 'andalso' referenced before assignment
+2023-10-28 08:44:10,843 - ERROR - app.py - app - log_exception - Exception on /person_result [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app.py", line 101, in person_result
+UnboundLocalError: local variable 'andalso' referenced before assignment
+2023-10-28 08:44:31,294 - DEBUG - app.py - app - person_result - search_weight:12
+2023-10-28 08:45:30,077 - DEBUG - app.py - app - person_result - search_weight:q
+2023-10-28 08:45:30,078 - ERROR - app.py - app - log_exception - Exception on /person_result [GET]
+Traceback (most recent call last):
+  File "/app/app.py", line 110, in person_result
+    search_weight = int(search_weight)
+ValueError: invalid literal for int() with base 10: 'q'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app.py", line 120, in person_result
+    log.error(traceback.format_exec())
+AttributeError: module 'traceback' has no attribute 'format_exec'
