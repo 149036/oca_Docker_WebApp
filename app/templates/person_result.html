@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='person_result.css')}}"
+    />
+    <title>検索結果表示用ファイル</title>
+  </head>
+  <body>
+    weightが{{search_weight}}以上の人
+    <br />
+    {{andalso}}
+    <br />
+    heightが{{search_height}}以上の人
+    <br />
+    <div>
+      <table border="1">
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>weight</th>
+          <th>height</th>
+        </tr>
+        {% for person in persons %}
+        <tr>
+          <td>{{person.id}}</td>
+          <td>{{person.name}}</td>
+          <td>{{person.weight}}</td>
+          <td>{{person.height}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </body>
+</html>

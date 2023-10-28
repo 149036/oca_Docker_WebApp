@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='try_css.css')}}"/>
+    <script src={{url_for("static",filename="try_js.js")}}></script>
+    <script src={{url_for("static", filename="plotly-2.12.1.min.js")}}></script>
+  </head>
+  <body>  
+    <div id="try_graph" style="width:600px;height:250px;margin:auto;">
+      <script>
+        var trace = {
+            x: [1, 2, 3, 4],
+            y: [10, 15, 13, 17],
+            mode: 'lines+markers',
+            type: 'scatter',
+            text:['A1','A2','A3','A4'],
+        };
+        
+        var data = [trace];
+        Plotly.newPlot('try_graph', data);
+    </script>
+
+    </div>
+    <div>
+      <form method="POST" action="http://127.0.0.1:{{config.PORT}}/show_data">
+        <table border="1" id="table_id">
+          <tr>
+            <th>見出し1</th>
+            <th>見出し2</th>
+            <th>見出し3</th>
+          </tr>
+          <tr>
+            <td>内容1</td>
+            <td>内容2</td>
+            <td>内容3</td>
+          </tr>
+        </table>
+        <input type="button" name="submit" value="ボタン" onclick="change_table();" />
+      <select id="select_color">
+        <option value="red">赤</option>
+        <option value="blue">青</option>
+        <option value="yellow">黄</option>
+        <option value="green">緑</option>
+        <option value="black">黒</option>
+      </select>
+      </form>
+    </div>
+  </body>
+  </html>

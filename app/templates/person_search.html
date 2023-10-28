@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src={{url_for("static",filename="person_search.js")}}></script>
+    <title>検索用htmlファイル</title>
+  </head>
+  <body>
+    <form
+      action="http://127.0.0.1:{{config.PORT}}/person_result"
+      onsubmit="return check_input();"
+      id="form"
+      
+    >
+      検索対象：<br />
+      weightが<input type="text" value="" name="search_weight" id="weight"/>
+      <select name="over_under1">
+        <option value=">=">以上</option>
+        <option value="<=">以下</option>
+      </select>
+      の人<br />
+
+      heightが<input type="text" value="" name="search_height" id="height"/>
+      <select name="over_under2">
+        <option value=">=">以上</option>
+        <option value="<=">以下</option>
+      </select>
+      の人<br />
+
+      <label>or<input type="radio" value="or" name="andalso" /></label>
+      <label>and<input type="radio" value="and" name="andalso" /></label>
+      <input type="submit" value="検索" />
+    </form>
+  </body>
+</html>
